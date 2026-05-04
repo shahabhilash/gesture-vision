@@ -96,13 +96,13 @@ python src/train.py
   1. The compiled model weights are saved to `models/gesture_model.keras`.
   2. A Confusion Matrix and Accuracy/Loss graphs are exported to `plots/`.
 
-### Phase 4: Real-Time Inference
-Deploy the trained model onto your live webcam feed!
+### Phase 4: Real-Time Inference (Streamlit)
+Deploy the trained model into a web application that works both locally and on the Cloud.
 ```bash
-python src/app.py
+streamlit run src/app.py
 ```
-- **What it does:** Opens a high-performance desktop window. It maintains a rolling buffer of your last 30 frames and feeds them into the trained model. Once the confidence threshold exceeds 70%, the predicted gesture is painted onto the screen.
-- **Controls:** Press `q` to terminate the video stream.
+* **What it does:** Starts a web server and opens a browser window. It utilizes `streamlit-webrtc` to securely pipe your webcam feed to the backend model for processing.
+
 
 ---
 
