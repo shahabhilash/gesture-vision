@@ -57,12 +57,13 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### 3. Install Dependencies
+### 3. Install Local Dependencies
+To run the data collection locally on your machine, install the GUI-enabled packages:
 ```bash
-pip install tensorflow opencv-python mediapipe numpy scikit-learn matplotlib seaborn
+py -m pip install --no-cache-dir opencv-python mediapipe==0.10.9 tensorflow numpy scikit-learn matplotlib seaborn
 ```
 
-> **Note for Windows Users:** If your terminal throws a "Microsoft Store" error when typing `python`, replace all `python` commands in this guide with the `py` launcher.
+> **Note for Windows Users:** You must use the `py` command instead of `python` throughout this guide to prevent Windows from incorrectly opening the Microsoft Store.
 
 ---
 
@@ -73,7 +74,7 @@ This pipeline must be executed sequentially to generate the required datasets an
 ### Phase 1: Data Collection
 The AI needs raw visual data to learn from. This script captures your webcam feed and extracts the hand keypoints. 
 ```bash
-python collect.py
+py collect.py
 ```
 - **What it does:** Iterates through predefined gestures (`hello`, `thanks`, `yes`, `no`, etc.). For each gesture, it records 30 distinct sequences. Each sequence consists of 30 continuous frames.
 - **Output:** Raw `.npy` files containing the keypoint arrays are saved into `data/raw/`.
@@ -81,7 +82,7 @@ python collect.py
 ### Phase 2: Data Preprocessing
 Raw keypoint files must be structured into robust multi-dimensional arrays for the neural network.
 ```bash
-python extract.py
+py extract.py
 ```
 - **What it does:** Scans the `data/raw/` folder, validates the shape of all arrays, and stacks them into one massive Features tensor (`X.npy`) and a Labels tensor (`y.npy`). It also dynamically maps your string labels to integers.
 - **Output:** Saves `X.npy`, `y.npy`, and `label_map.npy` inside `data/processed/`.
@@ -89,7 +90,7 @@ python extract.py
 ### Phase 3: Model Training
 We feed the processed arrays into a 3-layer LSTM neural network.
 ```bash
-python src/train.py
+py src/train.py
 ```
 - **What it does:** Splits the data (70% Train, 15% Validation, 15% Test). Trains the LSTM network for up to 150 epochs using Early Stopping to prevent overfitting.
 - **Output:** 
