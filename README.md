@@ -127,6 +127,7 @@ Want to add your own signs? It takes less than 5 minutes!
 ---
 
 ## 🗺️ Directory Map
+
 ```text
 gesture-vision/
 ├── data/                    
